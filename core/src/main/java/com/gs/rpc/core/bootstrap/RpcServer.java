@@ -6,7 +6,6 @@ import com.gs.rpc.core.register.Service;
 import com.gs.rpc.core.register.ServiceHolder;
 import com.gs.rpc.core.spi.RpcServiceLoader;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -45,7 +44,7 @@ public class RpcServer {
             serverBootstrap.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
                     .childHandler(new InitHandler());
-            serverBootstrap.bind(port).sync().addListener(ChannelFutureListener.CLOSE);
+            serverBootstrap.bind("127.0.0.1", port).sync();
         } catch (Exception e) {
             log.error("start error", e);
             System.exit(-1);
